@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxLayout="column" fxFlex="1000px">
-    <form class="mt-60" #clientesFrm="ngForm">
+    <form class="mt-60" #clientesFrm="ngForm" (ngSubmit)="salvarCliente()">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Dados pessoais</mat-card-title>
@@ -9,10 +9,57 @@
           <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16">
             <mat-form-field class="full-width">
               <mat-label>Nome: *</mat-label>
-              <input type="text" placeholder="Insira seu nome" matInput />
+              <input
+                [(ngModel)]="cliente.nome"
+                type="text"
+                placeholder="Insira seu nome"
+                matInput
+                name="nome"
+              />
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>Email: *</mat-label>
+              <input
+                [(ngModel)]="cliente.email"
+                type="email"
+                placeholder="Insira seu email"
+                matInput
+                name="email"
+              />
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16">
+            <mat-form-field class="full-width">
+              <mat-label>CPF: *</mat-label>
+              <input
+                [(ngModel)]="cliente.cpf"
+                placeholder="Insira seu CPF"
+                matInput
+                name="cpf"
+              />
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>Data de Nascimento: *</mat-label>
+              <input
+                [(ngModel)]="cliente.dataNascimento"
+                placeholder="Data de nascimento"
+                matInput
+                name="dataNascimento"
+              />
             </mat-form-field>
           </div>
         </mat-card-content>
+        <mat-card-actions>
+          <button class="ml-5" mat-raised-button color="primary" type="submit">
+            <mat-icon fontIcon="save" type="submit"></mat-icon> Salvar
+          </button>
+          <button class="ml-5" mat-raised-button color="warn">
+            <mat-icon fontIcon="refresh"></mat-icon>Atuallizar
+          </button>
+          <button class="ml-5" mat-raised-button color="warn">
+            <mat-icon fontIcon="backspace"></mat-icon>Limpar
+          </button>
+        </mat-card-actions>
       </mat-card>
     </form>
   </div>
