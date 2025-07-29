@@ -22,6 +22,12 @@ export class clienteService {
       );
     }
   }
+
+  buscarClientePorId(id: string) {
+    const clientes = this.obterStorage();
+    return clientes.find((cliente: Cliente) => cliente.id === id);
+  }
+
   private obterStorage(): Cliente[] {
     const repoClientes = localStorage.getItem(clienteService.REPO_CLIENTES);
     if (repoClientes) {
