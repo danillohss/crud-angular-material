@@ -28,6 +28,30 @@ export class clienteService {
     return clientes.find((cliente: Cliente) => cliente.id === id);
   }
 
+  atualizarCliente(cliente: Cliente) {
+    const clientes = this.obterStorage();
+    const index = clientes.findIndex((c: Cliente) => c.id === cliente.id);
+    if (index !== -1) {
+      clientes[index] = cliente;
+      localStorage.setItem(
+        clienteService.REPO_CLIENTES,
+        JSON.stringify(clientes)
+      );
+    }
+  }
+
+  deletarCliente(id: string) {
+    const clientes = this.obterStorage();
+    const index = clientes.findIndex((c: Cliente) => c.id === id);
+    if (index !== -1) {
+      clientes.splice(index, 1);
+      localStorage.setItem(
+        clienteService.REPO_CLIENTES,
+        JSON.stringify(clientes)
+      );
+    }
+  }
+
   private obterStorage(): Cliente[] {
     const repoClientes = localStorage.getItem(clienteService.REPO_CLIENTES);
     if (repoClientes) {

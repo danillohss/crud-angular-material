@@ -46,8 +46,12 @@ export class Consulta implements OnInit {
   pesquisarClientes() {
     this.listaClientes = this.service.pesquisarClientes(this.search);
   }
-  deletarCliente(clienteId: string) {}
-  editarCliente(clienteId: string) {
+  deletarCliente(clienteId: string) {
+    this.service.deletarCliente(clienteId);
+    this.listaClientes = this.service.pesquisarClientes(this.search);
+    alert('Cliente deletado com sucesso!');
+  }
+  irParaEditarCliente(clienteId: string) {
     this.router.navigate(['/cadastro'], { queryParams: { id: clienteId } });
   }
 }

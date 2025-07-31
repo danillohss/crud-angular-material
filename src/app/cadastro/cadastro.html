@@ -50,12 +50,15 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
+          @if(!atualizando){
           <button class="ml-5" mat-raised-button color="primary" type="submit">
             <mat-icon fontIcon="save" type="submit"></mat-icon> Salvar
           </button>
+          } @else {
           <button class="ml-5" mat-raised-button color="warn">
-            <mat-icon fontIcon="refresh"></mat-icon>Atuallizar
+            <mat-icon fontIcon="refresh" type="submit"></mat-icon>Atuallizar
           </button>
+          }
           <button class="ml-5" mat-raised-button color="warn">
             <mat-icon fontIcon="backspace"></mat-icon>Limpar
           </button>

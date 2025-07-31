@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { Cliente } from './cliente';
 import { clienteService } from '../clienteService';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   imports: [
     FlexLayoutModule,
@@ -25,10 +25,19 @@ import { ActivatedRoute } from '@angular/router';
 export class Cadastro implements OnInit {
   cliente: Cliente = Cliente.newCliente();
   atualizando: boolean = false;
-  constructor(private service: clienteService, private route: ActivatedRoute) {}
-  salvarCliente() {
-    this.service.salvar(this.cliente);
+  constructor(
+    private service: clienteService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  async salvarCliente() {
+    if (!this.atualizando) {
+      await this.service.salvar(this.cliente);
+    } else {
+      await this.service.atualizarCliente(this.cliente);
+    }
     this.cliente = Cliente.newCliente();
+    this.router.navigate(['/consulta']);
   }
   ngOnInit() {
     this.route.queryParamMap.subscribe((query: any) => {
