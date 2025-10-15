@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +9,8 @@ import { MatButton } from '@angular/material/button';
 import { Cliente } from './cliente';
 import { clienteService } from '../clienteService';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   imports: [
     FlexLayoutModule,
@@ -18,7 +20,9 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatInputModule,
     MatIconModule,
     MatButton,
+    NgxMaskDirective,
   ],
+  providers: [provideNgxMask()],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css',
 })
@@ -28,16 +32,22 @@ export class Cadastro implements OnInit {
   constructor(
     private service: clienteService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {}
   async salvarCliente() {
     if (!this.atualizando) {
       await this.service.salvar(this.cliente);
+      this.openSnackBar('Cliente salvo com sucesso!', 'Fechar');
     } else {
       await this.service.atualizarCliente(this.cliente);
+      this.openSnackBar('Cliente atualizado com sucesso!', 'Fechar');
     }
     this.cliente = Cliente.newCliente();
     this.router.navigate(['/consulta']);
+  }
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
   ngOnInit() {
     this.route.queryParamMap.subscribe((query: any) => {
