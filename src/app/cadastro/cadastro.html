@@ -3,7 +3,7 @@
     <form class="mt-60" #clientesFrm="ngForm" (ngSubmit)="salvarCliente()">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Dados pessoais</mat-card-title>
+          <mat-card-title>Dados cadastrais</mat-card-title>
         </mat-card-header>
         <mat-card-content class="mt-20">
           <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16">
@@ -48,6 +48,36 @@
                 matInput
                 name="dataNascimento"
               />
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16">
+            <mat-form-field class="full-width">
+              <mat-label>UF</mat-label>
+              <mat-select
+                [(ngModel)]="cliente.UF"
+                name="UF"
+                (ngModelChange)="getMunicipios()"
+                placeholder="Selecione a UF"
+              >
+                <mat-option *ngFor="let uf of UFs" [value]="uf.sigla">{{
+                  uf.nome
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>Municipio</mat-label>
+              <mat-select
+                [disabled]="!cliente.UF"
+                [(ngModel)]="cliente.municipio"
+                name="municipio"
+                placeholder="Selecione o municipio"
+              >
+                <mat-option
+                  *ngFor="let municipio of municipios"
+                  [value]="municipio.nome"
+                  >{{ municipio.nome }}</mat-option
+                >
+              </mat-select>
             </mat-form-field>
           </div>
         </mat-card-content>
